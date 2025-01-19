@@ -17,7 +17,7 @@ const HomeScreen = () => {
           </View>
         </View>
         <View style={styles.searchBar}>
-        <TouchableOpacity onPress={() =>router.push('/Search')}>
+        <TouchableOpacity onPress={() =>router.push('/SearchScreen')}>
             <TextInput
               style={styles.searchInput}
               placeholder="Search for book, e-library, or profile"

@@ -7,7 +7,7 @@ import BottomNav from './Screens/Components/BottomNav';
 export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(true);
   const segments = useSegments();
-  const showBottomNav = ['HomeScreen', 'Library', 'Profile'].includes(segments[0]);
+  const showBottomNav = ['HomeScreen', 'Library', 'Profile', 'SearchScreen'].includes(segments[0]);
 
   // Debug: Log the current segments
   console.log('Current segments:', segments);
@@ -75,6 +75,12 @@ export default function RootLayout() {
         />
         <Stack.Screen
           name="Library"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SearchScreen"
           options={{
             headerShown: false,
           }}
