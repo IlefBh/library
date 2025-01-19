@@ -5,18 +5,20 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 
 const BottomNav = () => {
   const segments = useSegments(); // Get the current route segments
-  const activeSegment = segments[0]; // Get the first segment of the current route
+  const activeSegment= segments[1]; // Use the second segment
   const router = useRouter();
+
+  console.log('Active Segment:', activeSegment); // Debug log
 
   const handleLogout = () => {
     // Handle logout logic here (e.g., clear user session, navigate to login page)
     console.log('User logged out');
-    router.push('/Signin'); // Navigate to the sign-in page after logout
+    router.push('/Screens/Signin'); // Navigate to the sign-in page after logout
   };
 
   return (
     <View style={styles.bottomNav}>
-      <Link href="/HomeScreen" asChild>
+      <Link href="/Screens/HomeScreen" asChild>
         <TouchableOpacity style={styles.navItem}>
           <Text
             style={[
@@ -28,7 +30,7 @@ const BottomNav = () => {
           </Text>
         </TouchableOpacity>
       </Link>
-      <Link href="/Library" asChild>
+      <Link href="/Screens/Library" asChild>
         <TouchableOpacity style={styles.navItem}>
           <Text
             style={[
@@ -40,7 +42,7 @@ const BottomNav = () => {
           </Text>
         </TouchableOpacity>
       </Link>
-      <Link href="/Profile" asChild>
+      <Link href="/Screens/Profile" asChild>
         <TouchableOpacity style={styles.navItem}>
           <Text
             style={[

@@ -19,21 +19,21 @@ const booksData: Record<TabKey, Book[]> = {
   Available: [
     {
       id: 1,
-      image: require('../assets/images/file.png'), // Replace with your image path
+      image: require('../../assets/images/file.png'), // Replace with your image path
       title: 'The Art of War',
       author: 'Sun Tzu',
       duration: '3 days',
     },
     {
       id: 2,
-      image: require('../assets/images/file.png'), // Replace with your image path
+      image: require('../../assets/images/file.png'), // Replace with your image path
       title: 'FILOSOFI TERAS',
       author: 'Henry Manampling',
       duration: '5 days',
     },
     {
       id: 3,
-      image: require('../assets/images/file.png'), // Replace with your image path
+      image: require('../../assets/images/file.png'), // Replace with your image path
       title: 'The Grilled Belief',
       author: 'Agatha Christie',
       duration: '3 days',
@@ -42,7 +42,7 @@ const booksData: Record<TabKey, Book[]> = {
   Waiting: [
     {
       id: 4,
-      image: require('../assets/images/file.png'), // Replace with your image path
+      image: require('../../assets/images/file.png'), // Replace with your image path
       title: 'To Love',
       author: 'Karinatul Jan',
       duration: '3 days',
@@ -51,14 +51,14 @@ const booksData: Record<TabKey, Book[]> = {
   History: [
     {
       id: 5,
-      image: require('../assets/images/file.png'), // Replace with your image path
+      image: require('../../assets/images/file.png'), // Replace with your image path
       title: 'A Lovely Tale',
       author: 'Yoon Hong',
       duration: '3 days',
     },
     {
       id: 6,
-      image: require('../assets/images/file.png'), // Replace with your image path
+      image: require('../../assets/images/file.png'), // Replace with your image path
       title: 'How to Love',
       author: 'Kamal Ravikant',
       duration: '3 days',

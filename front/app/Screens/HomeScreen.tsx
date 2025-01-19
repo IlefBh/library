@@ -17,7 +17,7 @@ const HomeScreen = () => {
           </View>
         </View>
         <View style={styles.searchBar}>
-        <TouchableOpacity onPress={() =>router.push('/SearchScreen')}>
+        <TouchableOpacity onPress={() =>router.push('/Screens/SearchScreen')}>
             <TextInput
               style={styles.searchInput}
               placeholder="Search for book, e-library, or profile"
@@ -32,7 +32,7 @@ const HomeScreen = () => {
         <Text style={styles.sectionTitle}>Continue Reading</Text>
         <View style={styles.bookCard}>
           <Image
-            source={require('../assets/images/bookCover1.png')} // Replace with your image path
+            source={require('../../assets/images/bookCover1.png')} // Replace with your image path
             style={styles.bookImage}
           />
           <View style={styles.bookDetails}>
@@ -74,7 +74,7 @@ const HomeScreen = () => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.recommendationCard}>
             <Image
-              source={require('../assets/images/bookCover2.png')} // Replace with your image path
+              source={require('../../assets/images/bookCover2.png')} // Replace with your image path
               style={styles.recommendationImage}
             />
             <Text style={styles.recommendationTitle}>Atomic Habits</Text>
@@ -82,7 +82,7 @@ const HomeScreen = () => {
           </View>
           <View style={styles.recommendationCard}>
             <Image
-              source={require('../assets/images/bookCover3.png')} // Replace with your image path
+              source={require('../../assets/images/bookCover3.png')} // Replace with your image path
               style={styles.recommendationImage}
             />
             <Text style={styles.recommendationTitle}>The Tipping Point</Text>

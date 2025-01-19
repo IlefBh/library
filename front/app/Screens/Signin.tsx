@@ -14,7 +14,7 @@ const SignInPage = () => {
 
   return (
     <View style={styles.container}>
-        <Image source={require('../assets/images/file.png')} style={styles.logo} />
+        <Image source={require('../../assets/images/file.png')} style={styles.logo} />
       <Text style={styles.title}>Sign In</Text>
 
       <TextInput
@@ -40,7 +40,7 @@ const SignInPage = () => {
 
       <View style={styles.signUpContainer}>
         <Text style={styles.signUpText}>Don't have an account? </Text>
-        <Link href="/Signup" asChild>
+        <Link href="/Screens/Signup" asChild>
           <TouchableOpacity>
             <Text style={styles.signUpLink}>Sign up</Text>
           </TouchableOpacity>

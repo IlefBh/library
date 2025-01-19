@@ -26,8 +26,8 @@ const WelcomeScreen = () => {
         <Text style={styles.buttonText}>Back</Text>
       </TouchableOpacity>
 
-      <Text style={styles.communityText}>Welcome to the Llogia Community</Text>
-      <Text style={styles.communitySubtext}>Enhance Your Reading Experience with Social Features on Llogia</Text>
+      <Text style={styles.communityText}>Welcome to the Readify Community</Text>
+      <Text style={styles.communitySubtext}>Enhance Your Reading Experience with Social Features on Readify</Text>
     </View>
   );
 };

@@ -10,7 +10,7 @@ const WelcomeScreen = () => {
       <Text style={styles.subtitle}>Discover thousands of books and meet your book bestie!</Text>
 
       {/* Use Link for navigation */}
-      <Link href="./NextScreen" asChild>
+      <Link href="./Screens/NextScreen" asChild>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>

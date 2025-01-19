@@ -2,22 +2,22 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Link } from 'expo-router';
 
-const NextScreen = () => {
+const NextNextScreen = () => {
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/images/ilustration.png')} style={styles.welcomeImage} />
-            <Text style={styles.title}>Enjoy the World of Reading and Sharing Together</Text>
-            <Text style={styles.subtitle}>Discover thousands of books and meet your book bestie!</Text>
+      <Image source={require('../../assets/images/ill.png')} style={styles.welcomeImage} />
+            <Text style={styles.title}>Welcome to the Readify Community</Text>
+            <Text style={styles.subtitle}>Enhance Your Reading Experience with Social Features on Readify</Text>
 
       {/* Use Link to go back to the Welcome Screen */}
-      <Link href="/NextNextScreen" asChild>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Next</Text>
-        </TouchableOpacity>
-      </Link>
       <Link href="/" asChild>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Go back</Text>
+        </TouchableOpacity>
+      </Link>
+      <Link href="/Screens/Signin" asChild>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Let's get You Started</Text>
         </TouchableOpacity>
       </Link>
     </View>
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NextScreen;
+export default NextNextScreen;

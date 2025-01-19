@@ -7,10 +7,10 @@ import BottomNav from './Screens/Components/BottomNav';
 export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(true);
   const segments = useSegments();
-  const showBottomNav = ['HomeScreen', 'Library', 'Profile', 'SearchScreen'].includes(segments[0]);
+  const showBottomNav = ['HomeScreen', 'Library', 'Profile', 'SearchScreen'].includes(segments[1]);
 
-  // Debug: Log the current segments
-  console.log('Current segments:', segments);
+  console.log('Current segments:', segments); // Debug log
+  console.log('Show BottomNav:', showBottomNav); // Debug log
 
   useEffect(() => {
     // Simulate app initialization
@@ -30,61 +30,42 @@ export default function RootLayout() {
           headerShown: false, // Hide the header for all screens
         }}
       >
-        <Stack.Screen
-          name="index" // This corresponds to the file `app/index.tsx`
-          options={{
-            headerShown: false, // Hide the header for the welcome screen
-          }}
-        />
-        <Stack.Screen
-          name="NextScreen" // This corresponds to the file `app/NextScreen.tsx`
-          options={{
-            headerShown: false, // Set a title for the next screen
-          }}
-        />
-        <Stack.Screen
-          name="NextNextScreen"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="HomeScreen"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen name="Search" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="Signup"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Signin"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Profile"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Library"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="SearchScreen"
-          options={{
-            headerShown: false,
-          }}
-        />
+       <Stack.Screen
+  name="Screens/HomeScreen"
+  options={{
+    headerShown: false,
+  }}
+/>
+<Stack.Screen
+  name="Screens/Library"
+  options={{
+    headerShown: false,
+  }}
+/>
+<Stack.Screen
+  name="Screens/Profile"
+  options={{
+    headerShown: false,
+  }}
+/>
+<Stack.Screen
+  name="Screens/SearchScreen"
+  options={{
+    headerShown: false,
+  }}
+/>
+<Stack.Screen
+  name="Screens/Signin"
+  options={{
+    headerShown: false,
+  }}
+/>
+<Stack.Screen
+  name="Screens/Signup"
+  options={{
+    headerShown: false,
+  }}
+/>
       </Stack>
 
       {/* Conditionally render the BottomNav */}

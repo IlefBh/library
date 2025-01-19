@@ -18,12 +18,12 @@ const SignUpPage = () => {
     console.log('Phone Number:', phoneNumber);
     console.log('Password:', password);
     console.log('Re-Password:', rePassword);
-    router.push('/HomeScreen');
+    router.push('/Screens/HomeScreen');
   };
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/images/file.png')} style={styles.logo} />
+      <Image source={require('../../assets/images/file.png')} style={styles.logo} />
       <Text style={styles.title}>Sign Up</Text>
 
       <TextInput
@@ -73,7 +73,7 @@ const SignUpPage = () => {
 
       <View style={styles.signInContainer}>
         <Text style={styles.signInText}>Have an account? </Text>
-        <Link href="/Signin" asChild>
+        <Link href="/Screens/Signin" asChild>
           <TouchableOpacity>
             <Text style={styles.signInLink}>Sign in</Text>
           </TouchableOpacity>
