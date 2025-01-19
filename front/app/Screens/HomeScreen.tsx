@@ -1,11 +1,19 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
-import { useNavigation , useRoute} from '@react-navigation/native';
-import {useRouter} from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
+import dummyBooks from './dummyData'; // Import the dummy data
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const router = useRouter();
+
+  // Get the first book from the "Fiction" category for the "Continue Reading" section
+  const continueReadingBook = dummyBooks['Fiction'][0];
+
+  // Get the first two books from the "Self-Help" category for the "Recommendations" section
+  const recommendedBooks = dummyBooks['Self-Help'].slice(0, 2);
+
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
@@ -17,7 +25,7 @@ const HomeScreen = () => {
           </View>
         </View>
         <View style={styles.searchBar}>
-        <TouchableOpacity onPress={() =>router.push('/Screens/SearchScreen')}>
+          <TouchableOpacity onPress={() => router.push('/Screens/SearchScreen')}>
             <TextInput
               style={styles.searchInput}
               placeholder="Search for book, e-library, or profile"
@@ -32,14 +40,14 @@ const HomeScreen = () => {
         <Text style={styles.sectionTitle}>Continue Reading</Text>
         <View style={styles.bookCard}>
           <Image
-            source={require('../../assets/images/bookCover1.png')} // Replace with your image path
+            source={continueReadingBook.image} // Use the image from the dummy data
             style={styles.bookImage}
           />
           <View style={styles.bookDetails}>
-            <Text style={styles.bookTitle}>FILOSOFI TERAS</Text>
-            <Text style={styles.bookAuthor}>Henry Manampling</Text>
+            <Text style={styles.bookTitle}>{continueReadingBook.name}</Text>
+            <Text style={styles.bookAuthor}>{continueReadingBook.author}</Text>
             <Text style={styles.bookDescription} numberOfLines={3}>
-              Lebih dari 2.000 tahun lalu, sebuah mazhab filsafat menemukan akar masalah dan juga solusi dari banyak emosi negatif. Stoisisme, atau Filosofi...
+              {continueReadingBook.description}
             </Text>
           </View>
         </View>
@@ -49,22 +57,11 @@ const HomeScreen = () => {
       <View style={styles.categories}>
         <Text style={styles.sectionTitle}>Category</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <TouchableOpacity style={styles.categoryItem}>
-            <Text style={styles.categoryText}>See All</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryItem}>
-            <Text style={styles.categoryText}>Action & Adventure</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryItem}>
-            <Text style={styles.categoryText}>Business & Economies</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryItem}>
-            <Text style={styles.categoryText}>Family & Relationship</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryItem}>
-            <Text style={styles.categoryText}>Fiction</Text>
-          </TouchableOpacity>
-         
+          {Object.keys(dummyBooks).map((category, index) => (
+            <TouchableOpacity key={index} style={styles.categoryItem}>
+              <Text style={styles.categoryText}>{category}</Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
 
@@ -72,22 +69,16 @@ const HomeScreen = () => {
       <View style={styles.recommendations}>
         <Text style={styles.sectionTitle}>Recommendation</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.recommendationCard}>
-            <Image
-              source={require('../../assets/images/bookCover2.png')} // Replace with your image path
-              style={styles.recommendationImage}
-            />
-            <Text style={styles.recommendationTitle}>Atomic Habits</Text>
-            <Text style={styles.recommendationAuthor}>James Clear</Text>
-          </View>
-          <View style={styles.recommendationCard}>
-            <Image
-              source={require('../../assets/images/bookCover3.png')} // Replace with your image path
-              style={styles.recommendationImage}
-            />
-            <Text style={styles.recommendationTitle}>The Tipping Point</Text>
-            <Text style={styles.recommendationAuthor}>Malcolm Gladwell</Text>
-          </View>
+          {recommendedBooks.map((book, index) => (
+            <View key={index} style={styles.recommendationCard}>
+              <Image
+                source={book.image} // Use the image from the dummy data
+                style={styles.recommendationImage}
+              />
+              <Text style={styles.recommendationTitle}>{book.name}</Text>
+              <Text style={styles.recommendationAuthor}>{book.author}</Text>
+            </View>
+          ))}
         </ScrollView>
       </View>
     </ScrollView>
@@ -183,7 +174,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderWidth: 1,
     borderColor: '#5F1C1C',
-    
   },
   categoryText: {
     fontSize: 14,
