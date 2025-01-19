@@ -26,6 +26,7 @@ const BookSchema = new mongoose.Schema({
     description: { type: String },
     category: { type: String, required: true }, // Store category name directly
     isBooked: { type: Boolean, default: false },
+    image: { type: String, required: false },
     reviews: [
         {
             user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
