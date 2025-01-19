@@ -14,9 +14,7 @@ const SignInPage = () => {
 
   return (
     <View style={styles.container}>
-        <Image source={require('../assets/images/file.png')} style={styles.logo} />
-      <Text style={styles.title}>Sign In</Text>
-
+      <Image source={require('../../assets/images/file.png')} style={styles.logo} />
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -40,7 +38,7 @@ const SignInPage = () => {
 
       <View style={styles.signUpContainer}>
         <Text style={styles.signUpText}>Don't have an account? </Text>
-        <Link href="/Signup" asChild>
+        <Link href="/Screens/Signup" asChild>
           <TouchableOpacity>
             <Text style={styles.signUpLink}>Sign up</Text>
           </TouchableOpacity>
@@ -62,26 +60,25 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 20,
-    color:'#1C1C5F',
+    color: '#1C1C5F',
   },
   input: {
     width: '100%',
-    height: 40,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 10,
-    paddingLeft: 10,
+    borderRadius: 15,
     paddingHorizontal: 10,
     marginBottom: 15,
     backgroundColor: '#fff',
   },
   button: {
     width: '100%',
-    height: 40,
+    height: 50,
     backgroundColor: '#1C1C5F',
+    borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
     marginBottom: 15,
   },
   buttonText: {
@@ -102,9 +99,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   logo: {
-    width: 300,
-    height: 150,
-    marginBottom: 20,
+    width: 150,
+    height: 80,
+    marginBottom: 40,
   }
 });
 

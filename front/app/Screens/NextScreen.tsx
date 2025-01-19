@@ -2,22 +2,22 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Link } from 'expo-router';
 
-const NextNextScreen = () => {
+const NextScreen = () => {
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/images/ill.png')} style={styles.welcomeImage} />
-            <Text style={styles.title}>Welcome to the Readify Community</Text>
-            <Text style={styles.subtitle}>Enhance Your Reading Experience with Social Features on Readify</Text>
+      <Image source={require('../../assets/images/ilustration1.png')} style={styles.welcomeImage} />
+      <Text style={styles.title}>Read and Have Fun Without Limits</Text>
+      <Text style={styles.subtitle}>Read Anytime, Anywhere with Readify</Text>
 
       {/* Use Link to go back to the Welcome Screen */}
+      <Link href="/Screens/NextNextScreen" asChild>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Next</Text>
+        </TouchableOpacity>
+      </Link>
       <Link href="/" asChild>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Go back</Text>
-        </TouchableOpacity>
-      </Link>
-      <Link href="/Signin" asChild>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Let's get You Started</Text>
         </TouchableOpacity>
       </Link>
     </View>
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
   },
   text: {
     fontSize: 20,
@@ -44,13 +45,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 20,
+
   },
   button: {
     backgroundColor: '#1C1C5F',
     padding: 10,
     borderRadius: 20,
     marginBottom: 10,
-    width: '80%',
+    width: '100%',
     alignItems: 'center',
   },
   buttonText: {
@@ -64,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NextNextScreen;
+export default NextScreen;

@@ -2,17 +2,17 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Link } from 'expo-router';
 
-const NextScreen = () => {
+const NextNextScreen = () => {
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/images/ilustration.png')} style={styles.welcomeImage} />
-            <Text style={styles.title}>Enjoy the World of Reading and Sharing Together</Text>
-            <Text style={styles.subtitle}>Discover thousands of books and meet your book bestie!</Text>
+      <Image source={require('../../assets/images/ill.png')} style={styles.welcomeImage} />
+      <Text style={styles.title}>Welcome to the Readify Community</Text>
+      <Text style={styles.subtitle}>Enhance Your Reading Experience with Social Features on Readify</Text>
 
       {/* Use Link to go back to the Welcome Screen */}
-      <Link href="/NextNextScreen" asChild>
+      <Link href="/Screens/Signin" asChild>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Next</Text>
+          <Text style={styles.buttonText}>Let's get You Started</Text>
         </TouchableOpacity>
       </Link>
       <Link href="/" asChild>
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
   },
   text: {
     fontSize: 20,
@@ -44,13 +45,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 20,
+
   },
   button: {
     backgroundColor: '#1C1C5F',
     padding: 10,
     borderRadius: 20,
     marginBottom: 10,
-    width: '80%',
+    width: '100%',
     alignItems: 'center',
   },
   buttonText: {
@@ -64,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NextScreen;
+export default NextNextScreen;

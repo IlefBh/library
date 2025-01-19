@@ -7,10 +7,12 @@ import BottomNav from './Screens/Components/BottomNav';
 export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(true);
   const segments = useSegments();
-  const showBottomNav = ['HomeScreen', 'Library', 'Profile', 'SearchScreen'].includes(segments[0]);
 
-  // Debug: Log the current segments
-  console.log('Current segments:', segments);
+  // Use a fallback value (empty string) if segments[1] is undefined
+  const showBottomNav = ['HomeScreen', 'Library', 'Profile', 'SearchScreen'].includes(segments[1] || '');
+
+  console.log('Current segments:', segments); // Debug log
+  console.log('Show BottomNav:', showBottomNav); // Debug log
 
   useEffect(() => {
     // Simulate app initialization
@@ -31,56 +33,37 @@ export default function RootLayout() {
         }}
       >
         <Stack.Screen
-          name="index" // This corresponds to the file `app/index.tsx`
-          options={{
-            headerShown: false, // Hide the header for the welcome screen
-          }}
-        />
-        <Stack.Screen
-          name="NextScreen" // This corresponds to the file `app/NextScreen.tsx`
-          options={{
-            headerShown: false, // Set a title for the next screen
-          }}
-        />
-        <Stack.Screen
-          name="NextNextScreen"
+          name="Screens/HomeScreen"
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="HomeScreen"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen name="Search" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="Signup"
+          name="Screens/Library"
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="Signin"
+          name="Screens/Profile"
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="Profile"
+          name="Screens/SearchScreen"
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="Library"
+          name="Screens/Signin"
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="SearchScreen"
+          name="Screens/Signup"
           options={{
             headerShown: false,
           }}
