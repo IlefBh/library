@@ -5,7 +5,7 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 const bookRoutes = require('./routes/bookRoutes')
 const categoryRoutes = require('./routes/categoryRoutes');
-
+const path = require('path');
 dotenv.config();
 const app = express();
 connectDB();
@@ -15,6 +15,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/auth', authRoutes);
 app.use('/book', bookRoutes)
 app.use('/category', categoryRoutes);

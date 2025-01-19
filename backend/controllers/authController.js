@@ -9,7 +9,7 @@ const crypto = require('crypto');
 
 dotenv.config();
 
-exports.register = async (req, res) => {
+/*exports.register = async (req, res) => {
     const { name, email, number, password, role } = req.body;
 
     // Input validation
@@ -52,7 +52,82 @@ exports.register = async (req, res) => {
         console.error(err.message);
         res.status(500).send('Server error');
     }
+};*/
+const multer = require('multer');
+const path = require('path');
+// Configure multer storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/users/'); // Save in a specific folder
+    },
+    filename: (req, file, cb) => {
+        const uniqueName = `${Date.now()}-${file.originalname}`;
+        cb(null, uniqueName);
+    }
+});
+
+// File filter for images only
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+        cb(null, true);
+    } else {
+        cb(new Error('Only image files are allowed'), false);
+    }
 };
+
+const upload = multer({ storage, fileFilter });
+
+exports.register = async (req, res) => {
+    upload.single('image')(req, res, async (err) => {
+        if (err) {
+            return res.status(400).json({ msg: err.message });
+        }
+
+        const { name, email, number, password, role } = req.body;
+
+        if (!name || !email || !number || !password || !role) {
+            return res.status(400).json({ msg: 'Please enter all fields' });
+        }
+
+        try {
+            let user = await JWTUser.findOne({ email });
+            if (user) {
+                return res.status(400).json({ msg: 'Email already exists' });
+            }
+
+            const verificationToken = crypto.randomBytes(20).toString('hex');
+            const imagePath = req.file ? `uploads/users/${req.file.filename}` : null;
+
+            user = new JWTUser({
+                name,
+                email,
+                number,
+                password,
+                role,
+                verificationToken,
+                image: imagePath // Save the image path
+            });
+            await user.save();
+
+            const verificationUrl = `${req.protocol}://${req.get('host')}/auth/verify/${verificationToken}`;
+            await sendEmail(email, 'Email Verification', `Please verify your email by clicking on the link: ${verificationUrl}`);
+
+            res.status(201).json({
+                msg: 'Registration successful, please check your email to verify your account',
+                user: {
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    image: `${req.protocol}://${req.get('host')}/${imagePath}` // Send the full image URL
+                }
+            });
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server error');
+        }
+    });
+};
+
 
 exports.verifyEmail = async (req, res) => {
     const { token } = req.params;

@@ -47,7 +47,22 @@ const jwtUserSchema = new mongoose.Schema({
     },
     verificationToken: {
         type: String
-    }
+    },
+    image: {
+        type: String // Path to the uploaded image
+    },
+    bookings: [
+        {
+            id: { type: mongoose.Schema.Types.ObjectId, ref: 'Book', required: true },
+            title: { type: String, required: true }
+        }
+    ],
+    favorites: [
+        {
+            id: { type: mongoose.Schema.Types.ObjectId, ref: 'Book', required: true },
+            title: { type: String, required: true }
+        }
+    ]
 });
 
 jwtUserSchema.pre('save', async function (next) {
