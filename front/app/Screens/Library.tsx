@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
-import { Link } from 'expo-router';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, Button } from 'react-native';
+import dummyBooks from './dummyData'; // Import the dummy data
 
 // Define the type for the active tab
-type TabKey = 'Available' | 'Waiting' | 'History';
+type TabKey = 'Available' | 'Booked';
 
 // Define the type for a book
 type Book = {
@@ -12,62 +12,65 @@ type Book = {
   title: string;
   author: string;
   duration: string;
+  isAvailable: boolean; // Add isAvailable to the Book type
 };
 
-// Sample data for books
-const booksData: Record<TabKey, Book[]> = {
-  Available: [
-    {
-      id: 1,
-      image: require('../../assets/images/file.png'), // Replace with your image path
-      title: 'The Art of War',
-      author: 'Sun Tzu',
-      duration: '3 days',
-    },
-    {
-      id: 2,
-      image: require('../../assets/images/file.png'), // Replace with your image path
-      title: 'FILOSOFI TERAS',
-      author: 'Henry Manampling',
-      duration: '5 days',
-    },
-    {
-      id: 3,
-      image: require('../../assets/images/file.png'), // Replace with your image path
-      title: 'The Grilled Belief',
-      author: 'Agatha Christie',
-      duration: '3 days',
-    },
-  ],
-  Waiting: [
-    {
-      id: 4,
-      image: require('../../assets/images/file.png'), // Replace with your image path
-      title: 'To Love',
-      author: 'Karinatul Jan',
-      duration: '3 days',
-    },
-  ],
-  History: [
-    {
-      id: 5,
-      image: require('../../assets/images/file.png'), // Replace with your image path
-      title: 'A Lovely Tale',
-      author: 'Yoon Hong',
-      duration: '3 days',
-    },
-    {
-      id: 6,
-      image: require('../../assets/images/file.png'), // Replace with your image path
-      title: 'How to Love',
-      author: 'Kamal Ravikant',
-      duration: '3 days',
-    },
-  ],
+// Transform dummyBooks into the structure expected by the Library component
+const transformDummyBooks = (dummyBooks: any): Record<TabKey, Book[]> => {
+  const availableBooks: Book[] = [];
+  const bookedBooks: Book[] = [];
+
+  // Flatten all books from all categories into a single array
+  const allBooks = Object.values(dummyBooks).flat();
+
+  // Assign books to the appropriate tab based on availability
+  allBooks.forEach((book, index) => {
+    const transformedBook: Book = {
+      id: index + 1, // Generate a unique ID
+      image: book.image, // Use the image from dummy data
+      title: book.name, // Map `name` to `title`
+      author: book.author, // Use the author from dummy data
+      duration: '3 days', // Default duration (you can customize this)
+      isAvailable: book.isAvailable, // Add isAvailable from dummy data
+    };
+
+    if (book.isAvailable) {
+      availableBooks.push(transformedBook);
+    } else {
+      bookedBooks.push(transformedBook); // Add to bookedBooks if not available
+    }
+  });
+
+  return {
+    Available: availableBooks,
+    Booked: bookedBooks,
+  };
 };
+
+// Transform the dummyBooks data
+const booksData = transformDummyBooks(dummyBooks);
 
 const Library = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('Available'); // Explicitly type `activeTab`
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null); // State to store the selected book
+  const [modalVisible, setModalVisible] = useState(false); // State to control modal visibility
+
+  // Function to handle book selection
+  const handleBookSelect = (book: Book) => {
+    setSelectedBook(book); // Set the selected book
+    setModalVisible(true); // Show the modal
+  };
+
+  // Function to handle booking
+  const handleBook = () => {
+    console.log('Booked:', selectedBook?.title);
+    setModalVisible(false); // Hide the modal
+  };
+
+  // Function to handle cancel
+  const handleCancel = () => {
+    setModalVisible(false); // Hide the modal
+  };
 
   return (
     <View style={styles.container}>
@@ -75,7 +78,7 @@ const Library = () => {
       <View style={styles.header}>
         <Text style={styles.title}>Library</Text>
         <View style={styles.tabs}>
-          {(['Available', 'Waiting', 'History'] as TabKey[]).map((tab) => (
+          {(['Available', 'Booked'] as TabKey[]).map((tab) => (
             <TouchableOpacity
               key={tab}
               style={[styles.tab, activeTab === tab && styles.activeTab]}
@@ -91,24 +94,59 @@ const Library = () => {
       <ScrollView style={styles.booksSection}>
         <Text style={styles.sectionTitle}>
           {activeTab === 'Available'
-            ? '6 Books'
-            : activeTab === 'Waiting'
-            ? '1 Book'
-            : '1 Book'}
+            ? `${booksData.Available.length} Books`
+            : `${booksData.Booked.length} Books`}
         </Text>
         <View style={styles.booksGrid}>
           {booksData[activeTab].map((book) => (
-            <View key={book.id} style={styles.bookCard}>
+            <TouchableOpacity
+              key={book.id}
+              style={styles.bookCard}
+              onPress={() => handleBookSelect(book)} // Show modal when book is clicked
+            >
               <Image source={book.image} style={styles.bookImage} />
               <Text style={styles.bookTitle}>{book.title}</Text>
               <Text style={styles.bookAuthor}>{book.author}</Text>
               <Text style={styles.bookDuration}>{book.duration}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
 
-     
+      {/* Modal for Booking Confirmation */}
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            {selectedBook?.isAvailable ? (
+              <>
+                <Text style={styles.modalTitle}>Book this book?</Text>
+                <Text style={styles.modalText}>
+                  Do you want to book <Text style={styles.boldText}>{selectedBook?.title}</Text> by{' '}
+                  <Text style={styles.boldText}>{selectedBook?.author}</Text>?
+                </Text>
+                <View style={styles.modalButtons}>
+                  <Button title="Book" onPress={handleBook} />
+                  <Button title="Cancel" onPress={handleCancel} />
+                </View>
+              </>
+            ) : (
+              <>
+                <Text style={styles.modalTitle}>Book Unavailable</Text>
+                <Text style={styles.modalText}>
+                  Sorry, <Text style={styles.boldText}>{selectedBook?.title}</Text> by{' '}
+                  <Text style={styles.boldText}>{selectedBook?.author}</Text> is already booked.
+                </Text>
+                <Button title="OK" onPress={handleCancel} />
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -137,13 +175,16 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
+    backgroundColor: '#1C3F5F',
+    color:'white',
+
   },
   activeTab: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#1C1C8F',
   },
   tabText: {
     fontSize: 16,
-    color: '#333',
+    color: '#fff',
   },
   activeTabText: {
     color: '#fff',
@@ -185,20 +226,40 @@ const styles = StyleSheet.create({
     color: '#888',
     marginTop: 5,
   },
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 15,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  navItem: {
+  modalContent: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
     alignItems: 'center',
   },
-  navText: {
-    fontSize: 14,
-    color: '#333',
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color:'#1C1C8F',
+
+  },
+  modalText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  boldText: {
+    fontWeight: 'bold',
+    color:'#5F1C5F',
+
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
   },
 });
 
